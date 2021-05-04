@@ -1,0 +1,21 @@
+<div class="card">
+  <h2>PRODUCTOS</h2>
+  <div class="table">
+    <div class="table-header">
+      <div class="row">
+        <div class="col">#</div>
+        <div class="col flex-4">DESCRIPCIÓN</div>
+        <div class="col text-align-right">CANTIDAD</div>
+        <div class="col w-10px"></div>
+      </div>
+    </div>
+    <div class="table-body">
+      <div class="row item" *ngFor="let product of products; let i=index">
+        <div class="col">{{ i + 1}}</div>
+        <div class="col flex-4">{{ product.name }}</div>
+        <div class="col text-align-right">{{ product.quantity }}</div>
+        <div class="col w-10px"></div>
+      </div>
+    </div>
+  </div>  
+</div>

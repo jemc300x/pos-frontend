@@ -1,0 +1,15 @@
+:host {
+  display: grid;
+  grid-template-areas:  "header"
+                        "body";
+  grid-template-rows: 50px;
+  height: 100vh;
+  .header {
+    grid-area: header;
+  }
+  .body {
+    grid-area: body;
+    background-color: #edf6f9;
+    padding: 5px;
+  }
+}

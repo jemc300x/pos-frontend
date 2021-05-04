@@ -1,0 +1,41 @@
+.card {
+  border: 1px solid #cecece;
+  height: 100%;
+  background-color: white;
+}
+
+.table > .table-header {
+  background-color: #83c5be;
+  padding: 1px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.col {
+  flex: 1;
+}
+
+.col.flex-4 {
+  flex: 4;
+}
+
+.col.text-align-right {
+  text-align: right;
+}
+
+.col.w-10px {
+  flex: unset;
+  width: 10px;
+}
+
+.table-body {
+  overflow-y: scroll;
+  height: 85vh;
+}
+
+.item:hover {
+  background-color: #ececec;
+}
