@@ -4,6 +4,10 @@
   background-color: white;
 }
 
+.table > .table-caption {
+  padding: 5px;
+}
+
 .table > .table-header {
   background-color: #83c5be;
   padding: 1px;
@@ -12,6 +16,7 @@
 .row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .col {
@@ -31,11 +36,63 @@
   width: 10px;
 }
 
+.p-left-10px {
+  padding-left: 10px;
+}
+
+.p-right-10px {
+  padding-right: 19px;
+}
+
 .table-body {
+  overflow-y: hidden;
+  height: 77vh;
+}
+
+.table-body:hover {
   overflow-y: scroll;
-  height: 85vh;
+}
+
+.w-min-50px {
+  flex: unset;
+  min-width: 50px;
+}
+
+.table-body:hover > .row > .p-right-10px {
+  padding-right: 5px;
 }
 
 .item:hover {
   background-color: #ececec;
+}
+
+.input-filter {
+  display: flex;
+  align-items: center;
+  min-width: 50%;
+  margin: 5px;
+  border-bottom: 1px solid #cecece;
+}
+
+.input-filter > input {
+  width: 100%;
+  outline: none;
+  border: none;
+  height: 1.5rem;
+  padding: 0 10px;
+}
+
+.btn {
+  background-color: unset;
+  border: none;
+  outline: none;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+
+}
+
+.bi-plus-circle {
+  height: 32px;
+  width: 32px;
 }
