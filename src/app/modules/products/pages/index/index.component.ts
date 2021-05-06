@@ -1,36 +1,61 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { fromEvent } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-
-interface IProduct {
-  name: string;
-  quantity: number;
-}
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { fromEvent, Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { IProduct } from '../../interface/product';
+import { ProductsService } from '../../service/products.service';
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit, AfterViewInit {
+export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   products: Array<IProduct> = [];
   productsFiltered: Array<IProduct> = [];
-  @ViewChild('txtFilter', {static: true}) inputFilter: ElementRef;
+  @ViewChild('txtFilter', {static: true}) inputFilter!: ElementRef;
+  private destroy$: Subject<void> = new Subject<void>();
+  formProduct!: FormGroup;
+  showModalProduct: boolean = false;
 
-  constructor() { }
+  constructor(
+    private productsService: ProductsService,
+    private fromBuilder: FormBuilder
+  ) { }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   ngOnInit(): void {
-    for (let index = 0; index < 100; index++) {
-      this.products.push({name: `PRODUCT ${index}`, quantity: index * 2})      
-    }
-    this.productsFiltered = this.products;
+    this.getAll();
+    this.buildForm();
   }
 
   ngAfterViewInit(): void {
     fromEvent<any>(this.inputFilter.nativeElement, 'keyup')
-      .pipe(debounceTime(400))
+      .pipe(debounceTime(400), takeUntil(this.destroy$))
       .subscribe((value) => this.onFilter(String(value.target.value)))
+  }
+
+  buildForm(): void {
+    this.formProduct = this.fromBuilder.group({
+      id: [],
+      name: [],
+      quantity: []
+    });
+  }
+
+  getAll(): void {
+    this.productsService.getAll().pipe(takeUntil(this.destroy$)).subscribe(
+      res => {
+        this.products = res;
+        this.productsFiltered = this.products;
+      },
+      err => console.error(err)
+    )
   }
 
   onFilter(value: string ): void {
@@ -39,6 +64,36 @@ export class IndexComponent implements OnInit, AfterViewInit {
       return;
     }
     this.productsFiltered = this.products.filter( p => p.name.toLowerCase().includes(String(value).toLowerCase()))
+  }
+
+  onSaveProduct(): void {
+    console.log(this.formProduct.value);
+    if (this.formProduct.value.id) {
+      console.log('IF')
+      this.productsService.edit(this.formProduct.value).pipe(takeUntil(this.destroy$)).subscribe(
+        () => this.showModalProduct = false,
+        err => console.log(err)
+      );
+    } else {
+      console.log('ELSE')
+      this.productsService.create(this.formProduct.value).pipe(takeUntil(this.destroy$)).subscribe(
+        res => {
+          console.log(res)
+          this.formProduct.reset();
+          this.showModalProduct = false;
+        },
+        err => console.error(err)
+        );
+    }
+  }
+
+  onEditProduct(product: IProduct): void {
+    this.showModalProduct = true;
+    this.formProduct.setValue(product);
+  }
+
+  onShowModalProduct(): void {
+    this.showModalProduct = true;
   }
 
 }

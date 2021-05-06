@@ -10,7 +10,7 @@
         #txtFilter
       >
       <div>
-        <button class="btn" title="Agregar Nuevo Producto">
+        <button class="btn" title="Agregar Nuevo Producto" (click)="onShowModalProduct()">
           <i class="bi bi-plus-circle"></i>
         </button>
       </div>
@@ -27,8 +27,34 @@
         <div class="col p-left-10px w-min-50px">{{ i + 1}}</div>
         <div class="col flex-4">{{ product.name }}</div>
         <div class="col text-align-right p-right-10px">{{ product.quantity }}</div>
+        <div class="controls">
+          <button title="Editar" (click)="onEditProduct(product)"><i class="bi bi-pencil"></i></button>
+          <button title="Eliminar"><i class="bi bi-trash"></i></button>
+        </div>
       </div>
       <div *ngIf="productsFiltered.length === 0"><p>Producto no encontrado...</p></div>
     </div>
   </div>  
+</div>
+
+<div class="modal-container" [ngClass]="{'show': showModalProduct}">
+  <div class="modal">
+    <div class="title"><h3>PRODUCTO</h3></div>
+    <div class="content">
+      <form [formGroup]="formProduct">
+        <div class="form-input">
+          <label for="">Nombre</label>
+          <input type="text" formControlName="name">
+        </div>
+        <div class="form-input">
+          <label for="">Cantidad</label>
+          <input type="number" formControlName="quantity">
+        </div>
+      </form>
+    </div>
+    <div class="footer">
+      <button (click)="onSaveProduct()"><i class="bi bi-save"></i> Guardar</button>
+      <button (click)="showModalProduct = false"><i class="bi bi-x-circle"></i> Cancelar</button>
+    </div>
+  </div>
 </div>

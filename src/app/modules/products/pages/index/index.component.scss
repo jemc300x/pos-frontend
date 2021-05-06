@@ -17,6 +17,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  .controls {
+    display: none;
+    position: absolute;
+    left: 50%;
+
+    button {
+      background-color: none;
+      border: none;
+      outline: none;
+      margin-left: 10px;
+      cursor: pointer;
+
+      .bi-trash {
+        color: red;
+      }
+    }
+  }
+  &:hover > .controls {
+    display: inline-block;
+  }
 }
 
 .col {
@@ -95,4 +115,67 @@
 .bi-plus-circle {
   height: 32px;
   width: 32px;
+}
+
+.modal-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  .modal {
+    background-color: #fff;
+    border-radius: 5px;
+    height: 400px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    .title {
+      text-align: center;
+    }
+    .content {
+      flex: 1;
+      form {
+        display: flex;
+        flex-direction: column;
+        .form-input {
+          display: flex;
+          flex-direction: column;
+          padding: 5px;
+          input {
+            border: 1px solid #cecece;
+            border-radius: 5px;
+            line-height: 1.5rem;
+            padding: 2px;
+            outline: none;
+            transition: 0.3s;
+            &:focus{
+              border: 1px solid #00afb9;
+            }
+          }
+        }
+      }
+    }
+    .footer {
+      height: 50px;
+      padding: 5px;
+      text-align: center;
+      button {
+        padding: 5px;
+        margin-right: 5px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+  &.show {
+    display: flex;
+  }
 }
