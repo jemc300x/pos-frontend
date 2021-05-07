@@ -18,6 +18,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   formProduct!: FormGroup;
   showModalProduct: boolean = false;
+  showModalDelete: boolean = false;
+  currentProduct!: IProduct;
 
   constructor(
     private productsService: ProductsService,
@@ -51,6 +53,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   getAll(): void {
     this.productsService.getAll().pipe(takeUntil(this.destroy$)).subscribe(
       res => {
+        console.log('Res', res);
         this.products = res;
         this.productsFiltered = this.products;
       },
@@ -68,7 +71,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onSaveProduct(): void {
     console.log(this.formProduct.value);
-    if (this.formProduct.value.id) {
+    if (this.formProduct.get('id')?.value !== null) {
       console.log('IF')
       this.productsService.edit(this.formProduct.value).pipe(takeUntil(this.destroy$)).subscribe(
         () => this.showModalProduct = false,
@@ -76,6 +79,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     } else {
       console.log('ELSE')
+      // this.productsService.create(this.formProduct.value);
       this.productsService.create(this.formProduct.value).pipe(takeUntil(this.destroy$)).subscribe(
         res => {
           console.log(res)
@@ -94,6 +98,18 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onShowModalProduct(): void {
     this.showModalProduct = true;
+  }
+
+  onDeleteProduct(product: IProduct): void {
+    this.showModalDelete = true;
+    this.currentProduct = product;
+  }
+
+  onConfirmDeleteProduct(): void {
+    this.productsService.delete(this.currentProduct).subscribe(
+      () => this.showModalDelete = false,
+      err => console.error(err)
+    )
   }
 
 }

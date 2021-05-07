@@ -17,6 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   .controls {
     display: none;
     position: absolute;
@@ -35,7 +36,7 @@
     }
   }
   &:hover > .controls {
-    display: inline-block;
+    display: block;
   }
 }
 
@@ -82,8 +83,12 @@
   padding-right: 5px;
 }
 
-.item:hover {
-  background-color: #ececec;
+.item {
+  position: relative;
+ 
+  &:hover {
+    background-color: #ececec;
+  }
 }
 
 .input-filter {
@@ -177,5 +182,24 @@
   }
   &.show {
     display: flex;
+  }
+
+  .modal-message {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+
+    .controls {
+      margin-top: 10px;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+
+      button {
+        padding: 5px;
+        margin-right: 5px;
+        width: 100px;
+      }
+    }
   }
 }

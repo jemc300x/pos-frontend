@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { IProduct } from '../interface/product';
 
 @Injectable({
@@ -7,7 +7,8 @@ import { IProduct } from '../interface/product';
 })
 export class ProductsService {
 
-  products: IProduct[] = []
+  products: IProduct[] = [];
+  products$: BehaviorSubject<IProduct[]> = new BehaviorSubject<IProduct[]>(this.products);
 
   constructor() { 
     for (let index = 0; index < 100; index++) {
@@ -16,21 +17,27 @@ export class ProductsService {
   }
 
   getAll(): Observable<IProduct[]> {
-    return of(this.products);
+    this.products$.next(this.products)
+    return this.products$.asObservable();
   }
 
-  create(product: IProduct): Observable<IProduct> {
+  create(product: IProduct): Observable<boolean> {
     this.products.push(product);
-    return of(product);
+    this.products$.next(this.products);
+    return of(true);
   }
 
-  edit(product: IProduct): Observable<IProduct> {
-    this.products.forEach(product => {
-      if (product.id === product.id) {
-        product = product
-      }
-    });
+  edit(product: IProduct): Observable<boolean> {
+    console.log(product);
+    this.products = this.products.filter(p => p.id !== product.id);
+    this.products.push(product);
+    this.products$.next(this.products)
+    return of(true);
+  }
 
-    return of(product);
+  delete(product: IProduct): Observable<boolean> {
+    this.products = this.products.filter(p => p.id !== product.id);
+    this.products$.next(this.products);    
+    return of(true);
   }
 }

@@ -29,7 +29,7 @@
         <div class="col text-align-right p-right-10px">{{ product.quantity }}</div>
         <div class="controls">
           <button title="Editar" (click)="onEditProduct(product)"><i class="bi bi-pencil"></i></button>
-          <button title="Eliminar"><i class="bi bi-trash"></i></button>
+          <button title="Eliminar" (click)="onDeleteProduct(product)"><i class="bi bi-trash"></i></button>
         </div>
       </div>
       <div *ngIf="productsFiltered.length === 0"><p>Producto no encontrado...</p></div>
@@ -55,6 +55,18 @@
     <div class="footer">
       <button (click)="onSaveProduct()"><i class="bi bi-save"></i> Guardar</button>
       <button (click)="showModalProduct = false"><i class="bi bi-x-circle"></i> Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-container" [ngClass]="{'show': showModalDelete}">
+  <div class="modal-message">
+    <h3>Advertencia</h3>
+    <p>¿Eliminar el producto << {{ currentProduct?.name }} >>?</p>
+    <div class="controls">
+      <button (click)="onConfirmDeleteProduct()"><i class="bi bi-check-circle"></i> Si</button>
+      <button (click)="showModalDelete = false"><i class="bi bi-x-circle"></i> No</button>
     </div>
   </div>
 </div>
