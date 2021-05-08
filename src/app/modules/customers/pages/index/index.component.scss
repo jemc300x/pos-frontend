@@ -1,0 +1,211 @@
+.container {
+  border: 1px solid #cecece;
+  height: 100%;
+  background-color: white;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.table > .table-caption {
+  padding: 5px;
+}
+
+.table > .table-header {
+  background-color: #83c5be;
+  padding: 1px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2rem;
+  border-bottom: 1px solid #cecece;
+
+  .controls {
+    display: none;
+    position: absolute;
+    left: 50%;
+
+    button {
+      background-color: none;
+      border: none;
+      outline: none;
+      margin-left: 10px;
+      cursor: pointer;
+
+      .bi-trash {
+        color: red;
+      }
+    }
+  }
+  &:hover > .controls {
+    display: block;
+  }
+}
+
+.col {
+  flex: 1;
+}
+
+.col.flex-4 {
+  flex: 4;
+}
+
+.col.text-align-right {
+  text-align: right;
+}
+
+.col.w-10px {
+  flex: unset;
+  width: 10px;
+}
+
+.p-left-10px {
+  padding-left: 10px;
+}
+
+.p-right-10px {
+  padding-right: 19px;
+}
+
+.table-body {
+  overflow-y: hidden;
+  height: 76vh;
+}
+
+.table-body:hover {
+  overflow-y: scroll;
+}
+
+.w-min-50px {
+  flex: unset;
+  min-width: 50px;
+}
+
+.table-body:hover > .row > .p-right-10px {
+  padding-right: 5px;
+}
+
+.item {
+  position: relative;
+ 
+  &:hover {
+    background-color: #ececec;
+  }
+}
+
+.input-filter {
+  display: flex;
+  align-items: center;
+  min-width: 50%;
+  margin: 5px;
+  border-bottom: 1px solid #cecece;
+}
+
+.input-filter > input {
+  width: 100%;
+  outline: none;
+  border: none;
+  height: 1.5rem;
+  padding: 0 10px;
+}
+
+.btn {
+  background-color: unset;
+  border: none;
+  outline: none;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+
+}
+
+.bi-plus-circle {
+  height: 32px;
+  width: 32px;
+}
+
+.modal-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  .modal {
+    background-color: #fff;
+    border-radius: 5px;
+    height: 400px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    .title {
+      text-align: center;
+    }
+    .content {
+      flex: 1;
+      form {
+        display: flex;
+        flex-direction: column;
+        .form-input {
+          display: flex;
+          flex-direction: column;
+          padding: 5px;
+          input {
+            border: 1px solid #cecece;
+            border-radius: 5px;
+            line-height: 1.5rem;
+            padding: 2px;
+            outline: none;
+            transition: 0.3s;
+            &:focus{
+              border: 1px solid #00afb9;
+            }
+          }
+        }
+      }
+    }
+    .footer {
+      height: 50px;
+      padding: 5px;
+      text-align: center;
+      button {
+        padding: 5px;
+        margin-right: 5px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+  &.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .modal-message {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+
+    .controls {
+      margin-top: 10px;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+
+      button {
+        padding: 5px;
+        margin-right: 5px;
+        width: 100px;
+      }
+    }
+  }
+}

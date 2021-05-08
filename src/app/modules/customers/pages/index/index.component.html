@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="table">
+    <div class="table-caption">
+      <h2>CLIENTES</h2>
+    </div>
+    <div class="input-filter">
+      <input 
+        type="text" 
+        placeholder="Buscar Cliente..." 
+        #txtFilter
+      >
+      <div>
+        <button class="btn" title="Agregar Nuevo Cliente" (click)="onShowModalCustomer()">
+          <i class="bi bi-plus-circle"></i>
+        </button>
+      </div>
+    </div>
+    <div class="table-header">
+      <div class="row">
+        <div class="col p-left-10px w-min-50px">#</div>
+        <div class="col flex-4">Nombre</div>
+      </div>
+    </div>
+    <div class="table-body">
+      <div class="row item" *ngFor="let customer of customersFiltered; let i=index">
+        <div class="col p-left-10px w-min-50px">{{ i + 1}}</div>
+        <div class="col flex-4">{{ customer.fullname }}</div>
+        <div class="controls">
+          <button title="Editar" (click)="onEditCustomer(customer)"><i class="bi bi-pencil"></i></button>
+          <button title="Eliminar" (click)="onDeleteCustomer(customer)"><i class="bi bi-trash"></i></button>
+        </div>
+      </div>
+      <div *ngIf="customersFiltered.length === 0"><p>Cliente no encontrado...</p></div>
+    </div>
+  </div>  
+</div>
+
+<div class="modal-container" [ngClass]="{'show': showModalCustomer}">
+  <div class="modal">
+    <div class="title"><h3>CLIENTE</h3></div>
+    <div class="content">
+      <form [formGroup]="formCustomer">
+        <div class="form-input">
+          <label for="">Nombre</label>
+          <input type="text" formControlName="fullname">
+        </div>
+      </form>
+    </div>
+    <div class="footer">
+      <button (click)="onSaveCustomer()"><i class="bi bi-save"></i> Guardar</button>
+      <button (click)="showModalCustomer = false"><i class="bi bi-x-circle"></i> Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-container" [ngClass]="{'show': showModalDelete}">
+  <div class="modal-message">
+    <h3>Advertencia</h3>
+    <p>¿Eliminar el cliente << {{ currentCustomer?.fullname }} >>?</p>
+    <div class="controls">
+      <button (click)="onConfirmDeleteProduct()"><i class="bi bi-check-circle"></i> Si</button>
+      <button (click)="showModalDelete = false"><i class="bi bi-x-circle"></i> No</button>
+    </div>
+  </div>
+</div>
