@@ -1,7 +1,9 @@
-.card {
+.container {
   border: 1px solid #cecece;
   height: 100%;
   background-color: white;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .table > .table-caption {
@@ -17,6 +19,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 2rem;
+  border-bottom: 1px solid #cecece;
 
   .controls {
     display: none;
@@ -130,9 +134,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
+  
   .modal {
     background-color: #fff;
     border-radius: 5px;
@@ -140,6 +142,7 @@
     width: 300px;
     display: flex;
     flex-direction: column;
+    padding: 10px;
     .title {
       text-align: center;
     }
@@ -182,6 +185,9 @@
   }
   &.show {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
   }
 
   .modal-message {

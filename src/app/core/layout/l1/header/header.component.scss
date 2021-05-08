@@ -5,4 +5,11 @@
   align-items: center;
   justify-content: center;
   color: white;
+
+  a {
+    text-decoration: none;
+    &:visited {
+      color: white;
+    }
+  }
 }
