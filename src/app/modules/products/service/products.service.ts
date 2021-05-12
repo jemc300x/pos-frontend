@@ -12,7 +12,12 @@ export class ProductsService {
 
   constructor() { 
     for (let index = 0; index < 100; index++) {
-      this.products.push({ id: index, name: `PRODUCT ${index}`, quantity: index * 2})      
+      this.products.push({ 
+        id: index, 
+        name: `PRODUCT ${index}`, 
+        quantity: index * 2,
+        price: 1 + index
+      })      
     }
   }
 

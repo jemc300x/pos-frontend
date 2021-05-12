@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="customer">
+    <input class="input-search" list="customers" type="text" placeholder="Buscar Cliente...">
+    <datalist id="customers">
+      <option *ngFor="let product of products" [value]="product.name"></option>
+    </datalist>
+    <button title="Agregar Nuevo Cliente"><i class="bi bi-plus"></i></button>
+  </div>
+  <!-- <ngx-select 
+    [items]="products"
+    [allowClear]="true"
+  ></ngx-select> -->
+</div>
+<div class="card">
+
+</div>

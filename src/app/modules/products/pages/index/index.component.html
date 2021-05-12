@@ -19,6 +19,7 @@
       <div class="row">
         <div class="col p-left-10px w-min-50px">#</div>
         <div class="col flex-4">DESCRIPCIÓN</div>
+        <div class="col text-align-right p-right-10px">PRECIO</div>
         <div class="col text-align-right p-right-10px">CANTIDAD</div>
       </div>
     </div>
@@ -26,6 +27,7 @@
       <div class="row item" *ngFor="let product of productsFiltered; let i=index">
         <div class="col p-left-10px w-min-50px">{{ i + 1}}</div>
         <div class="col flex-4">{{ product.name }}</div>
+        <div class="col text-align-right">{{ product.price | currency}}</div>
         <div class="col text-align-right p-right-10px">{{ product.quantity }}</div>
         <div class="controls">
           <button title="Editar" (click)="onEditProduct(product)"><i class="bi bi-pencil"></i></button>
@@ -45,6 +47,10 @@
         <div class="form-input">
           <label for="">Nombre</label>
           <input type="text" formControlName="name">
+        </div>
+        <div class="form-input">
+          <label for="">Precio</label>
+          <input type="number" formControlName="price">
         </div>
         <div class="form-input">
           <label for="">Cantidad</label>

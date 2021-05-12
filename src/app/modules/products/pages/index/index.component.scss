@@ -70,12 +70,8 @@
 }
 
 .table-body {
-  overflow-y: hidden;
-  height: 76vh;
-}
-
-.table-body:hover {
   overflow-y: scroll;
+  height: 76vh;
 }
 
 .w-min-50px {
@@ -83,13 +79,9 @@
   min-width: 50px;
 }
 
-.table-body:hover > .row > .p-right-10px {
-  padding-right: 5px;
-}
-
 .item {
   position: relative;
- 
+
   &:hover {
     background-color: #ececec;
   }

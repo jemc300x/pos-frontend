@@ -42,18 +42,18 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((value) => this.onFilter(String(value.target.value)))
   }
 
-  buildForm(): void {
+  private buildForm(): void {
     this.formProduct = this.fromBuilder.group({
       id: [],
       name: [],
-      quantity: []
+      quantity: [],
+      price: []
     });
   }
 
   getAll(): void {
     this.productsService.getAll().pipe(takeUntil(this.destroy$)).subscribe(
       res => {
-        console.log('Res', res);
         this.products = res;
         this.productsFiltered = this.products;
       },
@@ -72,14 +72,11 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   onSaveProduct(): void {
     console.log(this.formProduct.value);
     if (this.formProduct.get('id')?.value !== null) {
-      console.log('IF')
       this.productsService.edit(this.formProduct.value).pipe(takeUntil(this.destroy$)).subscribe(
         () => this.showModalProduct = false,
         err => console.log(err)
       );
     } else {
-      console.log('ELSE')
-      // this.productsService.create(this.formProduct.value);
       this.productsService.create(this.formProduct.value).pipe(takeUntil(this.destroy$)).subscribe(
         res => {
           console.log(res)
